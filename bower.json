@@ -1,0 +1,18 @@
+{
+  "name": "wds-plugin-police",
+  "description": "Does some things we won't talk about",
+  "license": "GPLv2",
+  "authors": [
+    "WebDevStudios"
+  ],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+  }
+}

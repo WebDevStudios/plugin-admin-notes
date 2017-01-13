@@ -1,0 +1,18 @@
+{
+  "generator-plugin-wp": {
+    "name": "WDS Plugin Police",
+    "homepage": "http://webdevstudios.com",
+    "description": "Does some things we won't talk about",
+    "version": "0.1.0",
+    "author": "WebDevStudios",
+    "authoremail": "contact@webdevstudios.com",
+    "authorurl": "http://webdevstudios.com",
+    "license": "GPLv2",
+    "slug": "wds-plugin-police",
+    "classname": "WDS_Plugin_Police",
+    "classprefix": "WDSPP_",
+    "prefix": "wds_plugin_police",
+    "year": 2017,
+    "currentVersionWP": "4.7.1"
+  }
+}

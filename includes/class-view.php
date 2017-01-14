@@ -83,28 +83,19 @@ class WDSPP_View {
 
 					var data = {
 						'action':  'pp_dynamic_form',
-						'slug':    '<?php echo $plugin_data['slug'] ?>',
-						'plugin':  '<?php echo $plugin_data['plugin'] ?>',
-						'version': '<?php echo $plugin_data['Version'] ?>',
-						'update':  '<?php echo $plugin_data['update'] ?>'
+						'slug':    '<?php echo $plugin_data['slug'] ?>'
 					};
 
 					jQuery.post( ajaxurl, data, function ( response ) {
-						console.log( 'Got this from the server: ' + response );
 						jQuery( "#<?php echo 'police_' . $plugin_data['slug']; ?>" ).html( response );
 					} );
 
 					jQuery(document).on("click", "#<?php echo 'police_comment_submit_' . $plugin_data['slug']; ?>", function() {
 
-						console.log( 'stuff' );
-
 						var policeComment = {
 							'action':  'pp_receive_comment',
 							'comment' : jQuery( '#<?php echo 'police_comment_' . $plugin_data['slug']; ?>' ).val(),
 						    'slug':    '<?php echo $plugin_data['slug'] ?>',
-							'plugin':  '<?php echo $plugin_data['plugin'] ?>',
-							'version': '<?php echo $plugin_data['Version'] ?>',
-							'update':  '<?php echo $plugin_data['update'] ?>',
 							'who': '<?php echo get_current_user_id() ?>'
 						};
 

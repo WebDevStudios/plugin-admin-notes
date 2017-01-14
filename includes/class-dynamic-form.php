@@ -110,11 +110,9 @@ class WDSPP_Dynamic_form {
 		$args = array (
 			'post_content'  => $_POST['comment'],
 			'post_status'   => 'publish',
-			'post_author'   => $_POST['who'], // @TODO This can be accomplished another way?
 			'post_type'     => 'wdspp-plugin-police',
 		);
 		$id = wp_insert_post( $args );
-		update_post_meta($id,'pp_version',$_POST['version']); //
 		update_post_meta($id,'pp_slug',$_POST['slug']);
 	}
 }

@@ -198,6 +198,16 @@ final class WDS_Plugin_Police {
 		// < 5 for Taxonomy_Core,
 		// 0 Widgets because widgets_init runs at init priority 1.
 		add_action( 'init', array( $this, 'init' ), 0 );
+		add_action( 'admin_enqueue_scripts', array ($this, 'eq_scripts'));
+	}
+
+	/**
+	 * EQ the script.
+	 *
+	 * @since 0.1.0
+	 */
+	public function eq_scripts() {
+		wp_enqueue_script('pluginnotes',$this->url . '/assets/js/plugin-notes.js', array('jquery'),'0.1.0');
 	}
 
 	/**

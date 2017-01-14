@@ -76,53 +76,8 @@ class WDSPP_View {
 
 			// @TODO: Refactor this .js into a file.
 			?>
-			<div id="<?php echo 'police_' . $plugin_data['slug']; ?>" style="width:160px"></div>
-
-			<script type="text/javascript">
-				jQuery( document ).ready( function ( $ ) {
-
-					var data = {
-						'action':  'pp_dynamic_form',
-						'slug':    '<?php echo $plugin_data['slug'] ?>',
-						'plugin':  '<?php echo $plugin_data['plugin'] ?>',
-						'version': '<?php echo $plugin_data['Version'] ?>',
-						'update':  '<?php echo $plugin_data['update'] ?>'
-					};
-
-					jQuery.post( ajaxurl, data, function ( response ) {
-						console.log( 'Got this from the server: ' + response );
-						jQuery( "#<?php echo 'police_' . $plugin_data['slug']; ?>" ).html( response );
-					} );
-
-					jQuery(document).on("click", "#<?php echo 'police_comment_submit_' . $plugin_data['slug']; ?>", function() {
-
-						console.log( 'stuff' );
-
-						var policeComment = {
-							'action':  'pp_receive_comment',
-							'comment' : jQuery( '#<?php echo 'police_comment_' . $plugin_data['slug']; ?>' ).val(),
-						    'slug':    '<?php echo $plugin_data['slug'] ?>',
-							'plugin':  '<?php echo $plugin_data['plugin'] ?>',
-							'version': '<?php echo $plugin_data['Version'] ?>',
-							'update':  '<?php echo $plugin_data['update'] ?>',
-							'who': '<?php echo get_current_user_id() ?>'
-						};
-
-						jQuery.post( ajaxurl, policeComment, function ( response ) {
-							jQuery( "#<?php echo 'police_' . $plugin_data['slug']; ?>" ).html( response );
-						} );
-
-						return false;
-					});
-
-					jQuery(document).on("click", "#<?php echo 'police_comment_link_' . $plugin_data['slug']; ?>", function() {
-						jQuery('#<?php echo 'police_comment_div_' . $plugin_data['slug']; ?>').show();
-						jQuery('#<?php echo 'police_comment_link_' . $plugin_data['slug']; ?>').hide();
-					} );
-
-				} );
-
-			</script><?php
+			<div class="pluginnote" id="<?php echo $plugin_data['slug']; ?>" style="width:160px"></div>
+			<?php
 		}
 	}
 

@@ -256,6 +256,9 @@
     },
 
     emojiClicked: function(e) {
+
+      console.log('clicked');
+
       var emojiShortcode = $(e.target).parent().find('.emoji').attr('class').split('emoji-')[1];
       var emojiUnicode = toUnicode(findEmoji(emojiShortcode).unicode[defaults.emojiSet]);
 
@@ -628,3 +631,5 @@
   }
 
 })(jQuery);
+
+

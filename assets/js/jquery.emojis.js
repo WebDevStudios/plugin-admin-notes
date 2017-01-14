@@ -1,3 +1,5 @@
+(function($) {
+
 $(function() {
 $.fn.emojiPicker.emojis = [
   {
@@ -9073,3 +9075,6 @@ $.fn.emojiPicker.emojis = [
   }
 ]
 });
+
+
+})( jQuery );

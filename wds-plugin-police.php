@@ -11,7 +11,7 @@
  * Text Domain: wds-plugin-police
  * Domain Path: /languages
  *
- * @link http://webdevstudios.com
+ * @link    http://webdevstudios.com
  *
  * @package WDS Plugin Police
  * @version 0.1.0
@@ -44,7 +44,9 @@
  * Autoloads files with classes when needed
  *
  * @since  0.1.0
+ *
  * @param  string $class_name Name of the class being requested.
+ *
  * @return void
  */
 function wds_plugin_police_autoload_classes( $class_name ) {
@@ -59,6 +61,7 @@ function wds_plugin_police_autoload_classes( $class_name ) {
 
 	WDS_Plugin_Police::include_file( 'includes/class-' . $filename );
 }
+
 spl_autoload_register( 'wds_plugin_police_autoload_classes' );
 
 /**
@@ -181,9 +184,9 @@ final class WDS_Plugin_Police {
 	 */
 	public function plugin_classes() {
 		// Attach other plugin classes to the base plugin class.
-		$this->view = new WDSPP_View( $this );
+		$this->view          = new WDSPP_View( $this );
 		$this->plugin_police = new WDSPP_Plugin_police( $this );
-		$this->dynamic_form = new WDSPP_Dynamic_form( $this );
+		$this->dynamic_form  = new WDSPP_Dynamic_form( $this );
 	} // END OF PLUGIN CLASSES FUNCTION
 
 	/**
@@ -198,6 +201,21 @@ final class WDS_Plugin_Police {
 		// < 5 for Taxonomy_Core,
 		// 0 Widgets because widgets_init runs at init priority 1.
 		add_action( 'init', array( $this, 'init' ), 0 );
+		add_action( 'admin_enqueue_scripts', array( $this, 'eq_scripts' ) );
+	}
+
+	/**
+	 * EQ the script.
+	 *
+	 * @since 0.1.0
+	 */
+	public function eq_scripts() {
+		wp_enqueue_script( 'pluginnotes', $this->url . 'assets/js/plugin-notes.js', array( 'jquery' ), '0.1.0' );
+		wp_enqueue_script( 'pluginnotes_emojipicker', $this->url . 'assets/js/jquery.emojipicker.js', array( 'jquery' ), '0.1.0' );
+		wp_enqueue_script( 'pluginnotes_emojis', $this->url . 'assets/js/jquery.emojis.js', array( 'jquery' ), '0.1.0' );
+
+		wp_enqueue_style( 'pluginnotes_emojipicker_styles', $this->url . 'assets/css/jquery.emojipicker.css' );
+		wp_enqueue_style( 'pluginnotes_emojis_styles', $this->url . 'assets/css/jquery.emojipicker.a.css' );
 	}
 
 	/**
@@ -218,7 +236,8 @@ final class WDS_Plugin_Police {
 	 * @since  0.1.0
 	 * @return void
 	 */
-	public function _deactivate() {}
+	public function _deactivate() {
+	}
 
 	/**
 	 * Init hooks
@@ -231,7 +250,7 @@ final class WDS_Plugin_Police {
 		if ( ! $this->check_requirements() ) {
 			return;
 		}
-		
+
 		// load translated strings for plugin
 		load_plugin_textdomain( 'wds-plugin-police', false, dirname( $this->basename ) . '/languages/' );
 
@@ -297,11 +316,11 @@ final class WDS_Plugin_Police {
 	 */
 	public function requirements_not_met_notice() {
 		// compile default message
-		$default_message = sprintf( 
-			__( 'WDS Plugin Police is missing requirements and has been <a href="%s">deactivated</a>. Please make sure all requirements are available.', 'wds-plugin-police' ), 
-			admin_url( 'plugins.php' ) 
+		$default_message = sprintf(
+			__( 'WDS Plugin Police is missing requirements and has been <a href="%s">deactivated</a>. Please make sure all requirements are available.', 'wds-plugin-police' ),
+			admin_url( 'plugins.php' )
 		);
-		
+
 		// default details to null
 		$details = null;
 
@@ -323,7 +342,9 @@ final class WDS_Plugin_Police {
 	 * Magic getter for our object.
 	 *
 	 * @since  0.1.0
+	 *
 	 * @param string $field Field to get.
+	 *
 	 * @throws Exception Throws an exception if the field is invalid.
 	 * @return mixed
 	 */
@@ -347,7 +368,9 @@ final class WDS_Plugin_Police {
 	 * Include a file from the includes directory
 	 *
 	 * @since  0.1.0
+	 *
 	 * @param  string $filename Name of the file to be included.
+	 *
 	 * @return bool   Result of include call.
 	 */
 	public static function include_file( $filename ) {
@@ -355,6 +378,7 @@ final class WDS_Plugin_Police {
 		if ( file_exists( $file ) ) {
 			return include_once( $file );
 		}
+
 		return false;
 	}
 
@@ -362,12 +386,15 @@ final class WDS_Plugin_Police {
 	 * This plugin's directory
 	 *
 	 * @since  0.1.0
+	 *
 	 * @param  string $path (optional) appended path.
+	 *
 	 * @return string       Directory and path
 	 */
 	public static function dir( $path = '' ) {
 		static $dir;
 		$dir = $dir ? $dir : trailingslashit( dirname( __FILE__ ) );
+
 		return $dir . $path;
 	}
 
@@ -375,12 +402,15 @@ final class WDS_Plugin_Police {
 	 * This plugin's url
 	 *
 	 * @since  0.1.0
+	 *
 	 * @param  string $path (optional) appended path.
+	 *
 	 * @return string       URL and path
 	 */
 	public static function url( $path = '' ) {
 		static $url;
 		$url = $url ? $url : trailingslashit( plugin_dir_url( __FILE__ ) );
+
 		return $url . $path;
 	}
 }

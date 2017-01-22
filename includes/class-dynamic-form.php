@@ -65,7 +65,7 @@ class WDSPP_Dynamic_form {
 
 		echo '<div style="display: none;" id=police_comment_div_' . $slug . '>';
 		echo '<input type=hidden name=slug value=' . $slug . '>';
-		echo '<input type=text name=note id=police_comment_' . $slug . '>';
+		echo '<input type=text class="plugin_notes_' . $slug . '" name=note id=police_comment_' . $slug . '>';
 		echo '<input type=button value="Add a Note" id=police_comment_submit_' . $slug . '>';
 		echo '</div>';
 	}
@@ -110,11 +110,9 @@ class WDSPP_Dynamic_form {
 		$args = array (
 			'post_content'  => $_POST['comment'],
 			'post_status'   => 'publish',
-			'post_author'   => $_POST['who'],
 			'post_type'     => 'wdspp-plugin-police',
 		);
 		$id = wp_insert_post( $args );
-		update_post_meta($id,'pp_version',$_POST['version']);
 		update_post_meta($id,'pp_slug',$_POST['slug']);
 	}
 }

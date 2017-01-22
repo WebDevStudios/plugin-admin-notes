@@ -11,7 +11,7 @@ jQuery( document ).ready( function ( $ ) {
 			jQuery( '#' + slug ).html( response );
 		} );
 
-		jQuery( document ).on( "click", '#police_comment_submit_' + slug , function () {
+		jQuery( document ).on( "click", '#police_comment_submit_' + slug, function () {
 
 			var policeComment = {
 				'action':  'pp_receive_comment',
@@ -20,7 +20,7 @@ jQuery( document ).ready( function ( $ ) {
 			};
 
 			jQuery.post( ajaxurl, policeComment, function ( response ) {
-				jQuery( '#' + slug  ).html( response );
+				jQuery( '#' + slug ).html( response );
 			} );
 
 			return false;
@@ -31,6 +31,21 @@ jQuery( document ).ready( function ( $ ) {
 			jQuery( '.plugin_notes_' + slug ).emojiPicker();
 			jQuery( '#police_comment_link_' + slug ).hide();
 		} );
+
+
+		jQuery( document ).on( "click", '#plugin_lock_update_' + slug, function () {
+
+			var lockUpdates = {
+				'action': 'pp_lock_updates',
+				'slug':   slug
+			};
+
+			jQuery.post( ajaxurl, lockUpdates, function ( response ) {
+				jQuery( '#' + slug ).html( response );
+			} );
+
+		} );
+
 
 	} );
 

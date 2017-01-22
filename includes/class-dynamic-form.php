@@ -2,7 +2,7 @@
 /**
  * WDS Plugin Police Dynamic_form
  *
- * @since 0.1.0
+ * @since   0.1.0
  * @package WDS Plugin Police
  */
 
@@ -24,7 +24,9 @@ class WDSPP_Dynamic_form {
 	 * Constructor
 	 *
 	 * @since  0.1.0
+	 *
 	 * @param  WDS_Plugin_Police $plugin Main plugin object.
+	 *
 	 * @return void
 	 */
 	public function __construct( $plugin ) {
@@ -47,9 +49,51 @@ class WDSPP_Dynamic_form {
 	 * @since 0.1.0
 	 */
 	public function dynamic_form() {
-		$this->get_form($_POST['slug']);
-		$this->get_comments($_POST['slug']);
+		$this->get_form( $_POST['slug'] );
+		$this->get_comments( $_POST['slug'] );
+		$this->lock( $_POST['slug'] );
 		die();
+	}
+
+	public function lock($slug) {
+		echo '<BR /><a id=plugin_lock_update_' . $slug . '>';
+		if ( $this->lock_status( $slug ) ) {
+			echo 'un-lock';
+		} else {
+			echo 'Lock this plugin (do not find updates)';
+		}
+		echo '</a>';
+	}
+
+	private function lock_status($slug) {
+		$lock_plugins = get_option( 'wds_plugin_lock_updates' );
+		if ( is_array( $lock_plugins ) && in_array( $slug, $lock_plugins ) ) {
+			return true;
+		}
+
+		return false;
+	}
+
+	public function toggle_lock() {
+		$lock_plugins = get_option( 'wds_plugin_lock_updates' );
+		// If this plugin is in the list, remove it.
+		if ( in_array( $_POST['slug'], $lock_plugins ) ) {
+			$new_lock_plugins = array();
+			foreach ( $lock_plugins as $plugin ) {
+				if ( $_POST['slug'] != $plugin ) {
+					$new_lock_plugins[] = $plugin;
+				}
+			}
+
+			if ( isset( $new_lock_plugins ) ) {
+				update_option( 'wds_plugin_lock_updates', $new_lock_plugins );
+			}
+
+			// If this plugin isn't in the array add it.
+		} else {
+			$lock_plugins[] = $_POST['slug'];
+			update_option( 'wds_plugin_lock_updates', $lock_plugins );
+		}
 	}
 
 	/**
@@ -57,7 +101,7 @@ class WDSPP_Dynamic_form {
 	 *
 	 * Create the form for the slug.
 	 */
-	public function get_form($slug){
+	public function get_form( $slug ) {
 		// @TODO: This is kinda ugly, refactor.
 		echo '<a id=police_comment_link_' . $slug . '>';
 		echo 'Add a Note';
@@ -77,9 +121,9 @@ class WDSPP_Dynamic_form {
 	 *
 	 * @param $slug
 	 */
-	public function get_comments($slug) {
-		$args = array(
-			'post_type' => 'wdspp-plugin-police',
+	public function get_comments( $slug ) {
+		$args    = array(
+			'post_type'  => 'wdspp-plugin-police',
 			'meta_query' => array(
 				array(
 					'key'     => 'pp_slug',
@@ -88,10 +132,10 @@ class WDSPP_Dynamic_form {
 				),
 			),
 		);
-		$results=new WP_Query($args);
-		foreach ($results->posts as $post ){
+		$results = new WP_Query( $args );
+		foreach ( $results->posts as $post ) {
 			// @TODO: Clean this up.
-			$user_info = get_userdata($post->post_author);
+			$user_info = get_userdata( $post->post_author );
 			echo '<div style="font-size:smaller;">';
 			echo '<div>' . $post->post_content . '</div>';
 			echo '<i>' . $user_info->user_login . ' </i>';
@@ -106,13 +150,13 @@ class WDSPP_Dynamic_form {
 	 *
 	 * @since 0.1.0
 	 */
-	public function save_comment(){
-		$args = array (
-			'post_content'  => $_POST['comment'],
-			'post_status'   => 'publish',
-			'post_type'     => 'wdspp-plugin-police',
+	public function save_comment() {
+		$args = array(
+			'post_content' => $_POST['comment'],
+			'post_status'  => 'publish',
+			'post_type'    => 'wdspp-plugin-police',
 		);
-		$id = wp_insert_post( $args );
-		update_post_meta($id,'pp_slug',$_POST['slug']);
+		$id   = wp_insert_post( $args );
+		update_post_meta( $id, 'pp_slug', $_POST['slug'] );
 	}
 }

@@ -45,6 +45,7 @@ class WDSPP_View {
 		add_action( 'manage_plugins_custom_column', array( $this, 'render_column' ), 10, 3 );
 		add_action( 'wp_ajax_pp_dynamic_form', array( $this, 'display_form' ) );
 		add_action( 'wp_ajax_pp_receive_comment', array( $this, 'receive_comment' ) );
+		add_action( 'wp_ajax_pp_lock_updates', array( $this, 'toggle_lock' ) );
 	}
 
 	/**
@@ -97,6 +98,11 @@ class WDSPP_View {
 	 */
 	public function receive_comment() {
 		$this->plugin->dynamic_form->save_comment();
+		$this->display_form();
+	}
+
+	public function toggle_lock() {
+		$this->plugin->dynamic_form->toggle_lock();
 		$this->display_form();
 	}
 

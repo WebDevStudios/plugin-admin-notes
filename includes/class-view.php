@@ -106,4 +106,6 @@ class WDSPP_View {
 		$this->display_form();
 	}
 
+	// @TODO look at this hook: https://codex.wordpress.org/Plugin_API/Filter_Reference/plugin_row_meta
+
 }

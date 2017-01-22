@@ -49,7 +49,31 @@ class WDSPP_Dynamic_form {
 	public function dynamic_form() {
 		$this->get_form($_POST['slug']);
 		$this->get_comments($_POST['slug']);
+		$this->update($_POST['slug']);
 		die();
+	}
+
+	/**
+	 * @param $slug
+	 *
+	 * Set status for auto-updating.
+	 */
+	public function update($slug) {
+		echo '<BR /><a id=plugin_auto_update_' . $slug . '>';
+		if ($this->update_status($slug)) {
+			echo 'Turn off auto-updates';
+		} else {
+			echo 'Turn ON auto-updates';
+		}
+		echo '</a>';
+	}
+
+	private function update_status($slug) {
+		$update_plugins = get_option('wds_plugin_updates_auto_updates');
+		if (in_array($slug,$update_plugins)){
+			return true;
+		}
+		return false;
 	}
 
 	/**

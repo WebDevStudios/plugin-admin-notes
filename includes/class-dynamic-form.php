@@ -41,6 +41,7 @@ class WDSPP_Dynamic_form {
 	 * @return void
 	 */
 	public function hooks() {
+		add_filter( 'auto_update_plugin', array( $this, 'auto_update_stored_plugins' ), 10, 2 );
 	}
 
 	/**
@@ -165,10 +166,24 @@ class WDSPP_Dynamic_form {
 				update_option( 'wds_plugin_updates_auto_updates', $new_update_plugins );
 			}
 
-		// If this plugin isn't in the array add it.
+			// If this plugin isn't in the array add it.
 		} else {
 			$update_plugins[] = $_POST['slug'];
 			update_option( 'wds_plugin_updates_auto_updates', $update_plugins );
+		}
+	}
+
+	/**
+	 * Sets the auto-update for the plugins that are in the updates array.
+	 *
+	 * 
+	 */
+	public function auto_update_stored_plugins( $update, $item ) {
+		$plugins = get_option( 'wds_plugin_updates_auto_updates' );
+		if ( in_array( $item->slug, $plugins ) ) {
+			return true; // Always update plugins in this array
+		} else {
+			return $update; // Else, use the normal API response to decide whether to update or not
 		}
 	}
 }

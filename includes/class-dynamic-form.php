@@ -70,7 +70,7 @@ class WDSPP_Dynamic_form {
 
 	private function update_status($slug) {
 		$update_plugins = get_option('wds_plugin_updates_auto_updates');
-		if (in_array($slug,$update_plugins)){
+		if (is_array($update_plugins) && in_array($slug,$update_plugins)){
 			return true;
 		}
 		return false;
@@ -138,5 +138,24 @@ class WDSPP_Dynamic_form {
 		);
 		$id = wp_insert_post( $args );
 		update_post_meta($id,'pp_slug',$_POST['slug']);
+	}
+
+	public function toggle_updates() {
+		$update_plugins = get_option('wds_plugin_updates_auto_updates');
+
+		if (in_array($_POST['slug'], $update_plugins)) {
+			$new_update_plugins=array();
+			foreach ($update_plugins as $plugin) {
+				if ($_POST['slug'] != $plugin) {
+					$new_update_plugins[]= $plugin;
+				}
+			}
+			if (isset($new_update_plugins)) {
+				update_option('wds_plugin_updates_auto_updates',$new_update_plugins);
+			}
+		} else {
+			$update_plugins[] = $_POST['slug'];
+			update_option('wds_plugin_updates_auto_updates',$update_plugins);
+		}
 	}
 }

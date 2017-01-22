@@ -32,6 +32,19 @@ jQuery( document ).ready( function ( $ ) {
 			jQuery( '#police_comment_link_' + slug ).hide();
 		} );
 
+		jQuery( document ).on( "click", '#plugin_auto_update_' + slug, function() {
+
+			var toggleUpdate = {
+				'action':  'pp_toggle_updates',
+				'slug':    slug
+			};
+
+			jQuery.post( ajaxurl, toggleUpdate, function ( response ) {
+				jQuery( '#' + slug  ).html( response );
+			} );
+
+		} );
+
 	} );
 
 } );

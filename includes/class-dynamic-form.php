@@ -2,7 +2,7 @@
 /**
  * WDS Plugin Police Dynamic_form
  *
- * @since 0.1.0
+ * @since   0.1.0
  * @package WDS Plugin Police
  */
 
@@ -24,7 +24,9 @@ class WDSPP_Dynamic_form {
 	 * Constructor
 	 *
 	 * @since  0.1.0
+	 *
 	 * @param  WDS_Plugin_Police $plugin Main plugin object.
+	 *
 	 * @return void
 	 */
 	public function __construct( $plugin ) {
@@ -47,9 +49,9 @@ class WDSPP_Dynamic_form {
 	 * @since 0.1.0
 	 */
 	public function dynamic_form() {
-		$this->get_form($_POST['slug']);
-		$this->get_comments($_POST['slug']);
-		$this->update($_POST['slug']);
+		$this->get_form( $_POST['slug'] );
+		$this->get_comments( $_POST['slug'] );
+		$this->update( $_POST['slug'] );
 		die();
 	}
 
@@ -58,9 +60,9 @@ class WDSPP_Dynamic_form {
 	 *
 	 * Set status for auto-updating.
 	 */
-	public function update($slug) {
+	public function update( $slug ) {
 		echo '<BR /><a id=plugin_auto_update_' . $slug . '>';
-		if ($this->update_status($slug)) {
+		if ( $this->update_status( $slug ) ) {
 			echo 'Turn off auto-updates';
 		} else {
 			echo 'Turn ON auto-updates';
@@ -68,11 +70,12 @@ class WDSPP_Dynamic_form {
 		echo '</a>';
 	}
 
-	private function update_status($slug) {
-		$update_plugins = get_option('wds_plugin_updates_auto_updates');
-		if (is_array($update_plugins) && in_array($slug,$update_plugins)){
+	private function update_status( $slug ) {
+		$update_plugins = get_option( 'wds_plugin_updates_auto_updates' );
+		if ( is_array( $update_plugins ) && in_array( $slug, $update_plugins ) ) {
 			return true;
 		}
+
 		return false;
 	}
 
@@ -81,7 +84,7 @@ class WDSPP_Dynamic_form {
 	 *
 	 * Create the form for the slug.
 	 */
-	public function get_form($slug){
+	public function get_form( $slug ) {
 		// @TODO: This is kinda ugly, refactor.
 		echo '<a id=police_comment_link_' . $slug . '>';
 		echo 'Add a Note';
@@ -101,9 +104,9 @@ class WDSPP_Dynamic_form {
 	 *
 	 * @param $slug
 	 */
-	public function get_comments($slug) {
-		$args = array(
-			'post_type' => 'wdspp-plugin-police',
+	public function get_comments( $slug ) {
+		$args    = array(
+			'post_type'  => 'wdspp-plugin-police',
 			'meta_query' => array(
 				array(
 					'key'     => 'pp_slug',
@@ -112,10 +115,10 @@ class WDSPP_Dynamic_form {
 				),
 			),
 		);
-		$results=new WP_Query($args);
-		foreach ($results->posts as $post ){
+		$results = new WP_Query( $args );
+		foreach ( $results->posts as $post ) {
 			// @TODO: Clean this up.
-			$user_info = get_userdata($post->post_author);
+			$user_info = get_userdata( $post->post_author );
 			echo '<div style="font-size:smaller;">';
 			echo '<div>' . $post->post_content . '</div>';
 			echo '<i>' . $user_info->user_login . ' </i>';
@@ -130,32 +133,42 @@ class WDSPP_Dynamic_form {
 	 *
 	 * @since 0.1.0
 	 */
-	public function save_comment(){
-		$args = array (
-			'post_content'  => $_POST['comment'],
-			'post_status'   => 'publish',
-			'post_type'     => 'wdspp-plugin-police',
+	public function save_comment() {
+		$args = array(
+			'post_content' => $_POST['comment'],
+			'post_status'  => 'publish',
+			'post_type'    => 'wdspp-plugin-police',
 		);
-		$id = wp_insert_post( $args );
-		update_post_meta($id,'pp_slug',$_POST['slug']);
+		$id   = wp_insert_post( $args );
+		update_post_meta( $id, 'pp_slug', $_POST['slug'] );
 	}
 
+	/**
+	 * Toggle the udpate status.
+	 *
+	 *
+	 */
 	public function toggle_updates() {
-		$update_plugins = get_option('wds_plugin_updates_auto_updates');
+		$update_plugins = get_option( 'wds_plugin_updates_auto_updates' );
 
-		if (in_array($_POST['slug'], $update_plugins)) {
-			$new_update_plugins=array();
-			foreach ($update_plugins as $plugin) {
-				if ($_POST['slug'] != $plugin) {
-					$new_update_plugins[]= $plugin;
+		// If this plugin is in the list, remove it.
+		if ( in_array( $_POST['slug'], $update_plugins ) ) {
+			$new_update_plugins = array();
+
+			foreach ( $update_plugins as $plugin ) {
+				if ( $_POST['slug'] != $plugin ) {
+					$new_update_plugins[] = $plugin;
 				}
 			}
-			if (isset($new_update_plugins)) {
-				update_option('wds_plugin_updates_auto_updates',$new_update_plugins);
+
+			if ( isset( $new_update_plugins ) ) {
+				update_option( 'wds_plugin_updates_auto_updates', $new_update_plugins );
 			}
+
+		// If this plugin isn't in the array add it.
 		} else {
 			$update_plugins[] = $_POST['slug'];
-			update_option('wds_plugin_updates_auto_updates',$update_plugins);
+			update_option( 'wds_plugin_updates_auto_updates', $update_plugins );
 		}
 	}
 }

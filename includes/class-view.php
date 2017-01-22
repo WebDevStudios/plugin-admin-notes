@@ -80,7 +80,6 @@ class WDSPP_View {
 				$slug = $plugin_data['slug'];
 			}
 
-
 			?>
 			<div class="pluginnote" id="<?php echo $slug; ?>" style="width:160px"></div>
 			<?php

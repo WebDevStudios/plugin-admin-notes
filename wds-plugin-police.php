@@ -1,19 +1,19 @@
 <?php
 /**
- * Plugin Name: WDS Plugin Police
+ * Plugin Name: Plugin Admin Notes
  * Plugin URI:  http://webdevstudios.com
- * Description: Does some things we won't talk about
+ * Description: Adds a column to plugins to allow admins to leave notes as well as turn on auto-update and lock plugins from updating.
  * Version:     0.1.0
  * Author:      WebDevStudios
  * Author URI:  http://webdevstudios.com
  * Donate link: http://webdevstudios.com
  * License:     GPLv2
- * Text Domain: wds-plugin-police
+ * Text Domain: plugin-admin-notes
  * Domain Path: /languages
  *
  * @link    http://webdevstudios.com
  *
- * @package WDS Plugin Police
+ * @package Plugin Admin Notes
  * @version 0.1.0
  */
 

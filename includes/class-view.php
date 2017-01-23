@@ -77,9 +77,14 @@ class WDSPP_View {
 	public function render_column( $column_name, $plugin_file, $plugin_data ) {
 		if ( 'plugin_police' == $column_name ) {
 
-			// @TODO: Refactor this .js into a file.
+			if ( ! isset( $plugin_data['slug'] ) ) {
+				$slug = sanitize_title( $plugin_data['Name'] );
+			} else {
+				$slug = $plugin_data['slug'];
+			}
+
 			?>
-			<div class="pluginnote" id="<?php echo $plugin_data['slug']; ?>" style="width:160px"></div>
+			<div class="pluginnote" id="<?php echo $slug; ?>" style="width:160px"></div>
 			<?php
 		}
 	}

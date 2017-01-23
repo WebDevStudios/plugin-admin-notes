@@ -53,7 +53,49 @@ class WDSPP_Dynamic_form {
 		$this->get_form( $_POST['slug'] );
 		$this->get_comments( $_POST['slug'] );
 		$this->update( $_POST['slug'] );
+		$this->lock( $_POST['slug'] );
 		die();
+	}
+
+	public function lock($slug) {
+		echo '<BR /><a id=plugin_lock_update_' . $slug . '>';
+		if ( $this->lock_status( $slug ) ) {
+			echo 'un-lock';
+		} else {
+			echo 'Lock this plugin (do not find updates)';
+		}
+		echo '</a>';
+	}
+
+	public function lock_status($slug) {
+		$lock_plugins = get_option( 'wds_plugin_lock_updates' );
+		if ( is_array( $lock_plugins ) && in_array( $slug, $lock_plugins ) ) {
+			return true;
+		}
+
+		return false;
+	}
+
+	public function toggle_lock() {
+		$lock_plugins = get_option( 'wds_plugin_lock_updates' );
+		// If this plugin is in the list, remove it.
+		if ( in_array( $_POST['slug'], $lock_plugins ) ) {
+			$new_lock_plugins = array();
+			foreach ( $lock_plugins as $plugin ) {
+				if ( $_POST['slug'] != $plugin ) {
+					$new_lock_plugins[] = $plugin;
+				}
+			}
+
+			if ( isset( $new_lock_plugins ) ) {
+				update_option( 'wds_plugin_lock_updates', $new_lock_plugins );
+			}
+
+			// If this plugin isn't in the array add it.
+		} else {
+			$lock_plugins[] = $_POST['slug'];
+			update_option( 'wds_plugin_lock_updates', $lock_plugins );
+		}
 	}
 
 	/**

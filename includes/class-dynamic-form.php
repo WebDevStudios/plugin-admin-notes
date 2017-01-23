@@ -129,7 +129,7 @@ class WDSPP_Dynamic_form {
 	 */
 	public function get_form( $slug ) {
 		// @TODO: This is kinda ugly, refactor.
-		echo '<a id=police_comment_link_' . $slug . '>';
+		echo '<a href="javascript:void(0);" id=police_comment_link_' . $slug . '>';
 		echo 'Add a Note';
 		echo '</a>';
 

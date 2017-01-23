@@ -58,7 +58,7 @@ class WDSPP_Dynamic_form {
 	}
 
 	public function lock($slug) {
-		echo '<BR /><a id=plugin_lock_update_' . $slug . '>';
+		echo '<BR /><a href="javascript:void(0)" id=plugin_lock_update_' . $slug . '>';
 		if ( $this->lock_status( $slug ) ) {
 			echo 'un-lock';
 		} else {
@@ -104,7 +104,7 @@ class WDSPP_Dynamic_form {
 	 * Set status for auto-updating.
 	 */
 	public function update( $slug ) {
-		echo '<BR /><a id=plugin_auto_update_' . $slug . '>';
+		echo '<BR /><a href="javascript:void(0)" id=plugin_auto_update_' . $slug . '>';
 		if ( $this->update_status( $slug ) ) {
 			echo 'Turn off auto-updates';
 		} else {

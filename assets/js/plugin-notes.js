@@ -33,32 +33,35 @@ jQuery( document ).ready( function ( $ ) {
 		} );
 
 
-		jQuery( document ).on( "click", '#plugin_auto_update_' + slug, function() {
+		jQuery( document ).on( "click", '#plugin_auto_update_' + slug, function () {
 
 			var toggleUpdate = {
-				'action':  'pp_toggle_updates',
-				'slug':    slug
-			};
-
-			jQuery.post( ajaxurl, toggleUpdate, function ( response ) {
-				jQuery( '#' + slug  ).html( response );
-
-
-		jQuery( document ).on( "click", '#plugin_lock_update_' + slug, function () {
-
-			var lockUpdates = {
-				'action': 'pp_lock_updates',
+				'action': 'pp_toggle_updates',
 				'slug':   slug
 			};
 
-			jQuery.post( ajaxurl, lockUpdates, function ( response ) {
+			jQuery.post( ajaxurl, toggleUpdate, function ( response ) {
 				jQuery( '#' + slug ).html( response );
+
+
+				jQuery( document ).on( "click", '#plugin_lock_update_' + slug, function () {
+
+					var lockUpdates = {
+						'action': 'pp_lock_updates',
+						'slug':   slug
+					};
+
+					jQuery.post( ajaxurl, lockUpdates, function ( response ) {
+						jQuery( '#' + slug ).html( response );
+
+					} );
+
+				} );
 
 			} );
 
 		} );
 
 	} );
-
 } );
 

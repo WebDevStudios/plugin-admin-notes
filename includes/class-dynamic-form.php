@@ -65,7 +65,7 @@ class WDSPP_Dynamic_form {
 		echo '</a>';
 	}
 
-	private function lock_status($slug) {
+	public function lock_status($slug) {
 		$lock_plugins = get_option( 'wds_plugin_lock_updates' );
 		if ( is_array( $lock_plugins ) && in_array( $slug, $lock_plugins ) ) {
 			return true;

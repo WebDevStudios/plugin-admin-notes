@@ -1,4 +1,4 @@
-# WDS Plugin Police #
+# Plugin Admin Notes #
 **Contributors:**      WebDevStudios  
 **Donate link:**       http://webdevstudios.com  
 **Tags:**  

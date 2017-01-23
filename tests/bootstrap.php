@@ -12,7 +12,7 @@ function _manually_load_plugin() {
 	if ( class_exists( 'WP_REST_Controller' ) ) {
 		require WP_PLUGIN_DIR . '/rest-api/plugin.php';
 	}
-	require dirname( dirname( __FILE__ ) ) . '/wds-plugin-police.php';
+	require dirname( dirname( __FILE__ ) ) . '/plugin-admin-notes.php';
 }
 tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
 

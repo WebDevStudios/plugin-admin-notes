@@ -61,7 +61,7 @@ class WDSPP_View {
 	 * @return mixed
 	 */
 	public function add_column( $columns ) {
-		$columns['plugin_police'] = 'Plugin Police';
+		$columns['plugin_police'] = 'Notes';
 
 		return $columns;
 	}

@@ -30,6 +30,7 @@ jQuery( document ).ready( function ( $ ) {
 			jQuery( '#police_comment_div_' + slug ).show();
 			jQuery( '.plugin_notes_' + slug ).emojiPicker();
 			jQuery( '#police_comment_link_' + slug ).hide();
+			jQuery( '#police_comment_' + slug ).focus();
 		} );
 
 

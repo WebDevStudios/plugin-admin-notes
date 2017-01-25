@@ -216,6 +216,8 @@ final class WDS_Plugin_Police {
 
 		wp_enqueue_style( 'pluginnotes_emojipicker_styles', $this->url . 'assets/css/jquery.emojipicker.css' );
 		wp_enqueue_style( 'pluginnotes_emojis_styles', $this->url . 'assets/css/jquery.emojipicker.a.css' );
+		wp_enqueue_style( 'pluginnotes_fontawesome', $this->url . 'assets/css/font-awesome.min.css' );
+		wp_enqueue_style( 'pluginnotes_css', $this->url . 'assets/css/plugin-admin-notes.css' );
 	}
 
 	/**

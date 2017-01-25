@@ -106,9 +106,9 @@ class WDSPP_Dynamic_form {
 	public function update( $slug ) {
 		echo '<BR /><a href="javascript:void(0)" id=plugin_auto_update_' . $slug . '>';
 		if ( $this->update_status( $slug ) ) {
-			echo 'Turn off auto-updates';
+			echo '<i class="fa fa-refresh fa-lg green"></i>';
 		} else {
-			echo 'Turn ON auto-updates';
+			echo '<i class="fa fa-refresh fa-lg grey"></i>';
 		}
 		echo '</a>';
 	}

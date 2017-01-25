@@ -50,19 +50,19 @@ class WDSPP_Dynamic_form {
 	 * @since 0.1.0
 	 */
 	public function dynamic_form() {
-		$this->get_form( $_POST['slug'] );
-		$this->get_comments( $_POST['slug'] );
 		$this->update( $_POST['slug'] );
 		$this->lock( $_POST['slug'] );
+		$this->get_form( $_POST['slug'] );
+		$this->get_comments( $_POST['slug'] );
 		die();
 	}
 
 	public function lock($slug) {
-		echo '<BR /><a href="javascript:void(0)" id=plugin_lock_update_' . $slug . '>';
+		echo '<a href="javascript:void(0)" id=plugin_lock_update_' . $slug . '>';
 		if ( $this->lock_status( $slug ) ) {
-			echo 'un-lock';
+			echo '<i class="fa fa-lock fa-lg green"></i>';
 		} else {
-			echo 'Lock this plugin (do not find updates)';
+			echo '<i class="fa fa-lock fa-lg grey"></i>';
 		}
 		echo '</a>';
 	}
@@ -104,11 +104,11 @@ class WDSPP_Dynamic_form {
 	 * Set status for auto-updating.
 	 */
 	public function update( $slug ) {
-		echo '<BR /><a href="javascript:void(0)" id=plugin_auto_update_' . $slug . '>';
+		echo '<a href="javascript:void(0)" id=plugin_auto_update_' . $slug . '>';
 		if ( $this->update_status( $slug ) ) {
-			echo 'Turn off auto-updates';
+			echo '<i class="fa fa-refresh fa-lg green"></i>';
 		} else {
-			echo 'Turn ON auto-updates';
+			echo '<i class="fa fa-refresh fa-lg grey"></i>';
 		}
 		echo '</a>';
 	}
@@ -129,13 +129,13 @@ class WDSPP_Dynamic_form {
 	 */
 	public function get_form( $slug ) {
 		// @TODO: This is kinda ugly, refactor.
-		echo '<a href="javascript:void(0);" id=police_comment_link_' . $slug . '>';
+		echo '<BR><a href="javascript:void(0);" id=police_comment_link_' . $slug . '>';
 		echo 'Add a Note';
 		echo '</a>';
 
 		echo '<div style="display: none;" id=police_comment_div_' . $slug . '>';
 		echo '<input type=hidden name=slug value=' . $slug . '>';
-		echo '<input type=text class="plugin_notes_' . $slug . '" name=note id=police_comment_' . $slug . '>';
+		echo '<input type=text class="plugin_notes_' . $slug . ' plugin-admin-notes-note" name=note id=police_comment_' . $slug . '>';
 		echo '<input type=button value="Add a Note" id=police_comment_submit_' . $slug . '>';
 		echo '</div>';
 	}

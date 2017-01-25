@@ -135,7 +135,7 @@ class WDSPP_Dynamic_form {
 
 		echo '<div style="display: none;" id=police_comment_div_' . $slug . '>';
 		echo '<input type=hidden name=slug value=' . $slug . '>';
-		echo '<input type=text class="plugin_notes_' . $slug . '" name=note id=police_comment_' . $slug . '>';
+		echo '<input style="padding-right:30px; width:92%" type=text class="plugin_notes_' . $slug . '" name=note id=police_comment_' . $slug . '>';
 		echo '<input type=button value="Add a Note" id=police_comment_submit_' . $slug . '>';
 		echo '</div>';
 	}

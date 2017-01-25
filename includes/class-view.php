@@ -122,10 +122,12 @@ class WDSPP_View {
 	}
 
 	public function remove_update( $actions, $plugin_file, $plugin_data, $context ) {
+
+		error_log(print_r($actions,1));
+
 		$plugin_update = get_option( '_site_transient_update_plugins' );
 
 		if ( $this->plugin->dynamic_form->lock_status( $plugin_data['slug'] ) ) {
-			error_log( $plugin_data['plugin'] . ' is locked' );
 			if ( key_exists( $plugin_data['plugin'], $plugin_update->response ) ) {
 
 				// Set the no_update to the same data as the update.
@@ -138,6 +140,8 @@ class WDSPP_View {
 				update_option( '_site_transient_update_plugins', $plugin_update );
 			}
 		}
+
+		return $actions;
 
 	}
 

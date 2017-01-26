@@ -259,7 +259,7 @@ final class WDS_Plugin_Police {
 		// initialize plugin classes
 		$this->plugin_classes();
 
-		if (file_exists($this->path . 'pluginnotes.log')) {
+		if (!DOING_AJAX && file_exists($this->path . 'pluginnotes.log')) {
 			file_put_contents($this->path . 'pluginnotes.log', '');
 		}
 

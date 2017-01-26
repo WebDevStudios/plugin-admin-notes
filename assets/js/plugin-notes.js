@@ -7,10 +7,6 @@ jQuery( document ).ready( function ( $ ) {
 			'slug':   slug
 		};
 
-		jQuery.post( ajaxurl, comments, function ( response ) {
-			jQuery( '#' + slug ).html( response );
-		} );
-
 		jQuery( document ).on( "click", '#police_comment_submit_' + slug, function () {
 
 			var policeComment = {

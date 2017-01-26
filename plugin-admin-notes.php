@@ -2,14 +2,9 @@
 /**
  * Plugin Name: Plugin Admin Notes
  * Plugin URI:  http://webdevstudios.com
- * Description: Adds a column to plugins to allow admins to leave notes as well as turn on auto-update and lock plugins from updating.
- * Version:     0.1.0
- * Author:      WebDevStudios
- * Author URI:  http://webdevstudios.com
- * Donate link: http://webdevstudios.com
- * License:     GPLv2
- * Text Domain: plugin-admin-notes
- * Domain Path: /languages
+ * Description: Adds a column to plugins to allow admins to leave notes as well as turn on auto-update and lock plugins
+ * from updating. Version:     0.1.0 Author:      WebDevStudios Author URI:  http://webdevstudios.com Donate link:
+ * http://webdevstudios.com License:     GPLv2 Text Domain: plugin-admin-notes Domain Path: /languages
  *
  * @link    http://webdevstudios.com
  *
@@ -259,8 +254,8 @@ final class WDS_Plugin_Police {
 		// initialize plugin classes
 		$this->plugin_classes();
 
-		if (!DOING_AJAX && file_exists($this->path . 'pluginnotes.log')) {
-			file_put_contents($this->path . 'pluginnotes.log', '');
+		if ( ! defined( 'DOING_AJAX' ) && file_exists( $this->path . 'pluginnotes.log' ) ) {
+			file_put_contents( $this->path . 'pluginnotes.log', '' );
 		}
 
 	}

@@ -57,7 +57,7 @@ class WDSPP_Dynamic_form {
 		die();
 	}
 
-	public function lock($slug) {
+	public function lock( $slug ) {
 		echo '<a href="javascript:void(0)" id=plugin_lock_update_' . $slug . '>';
 		if ( $this->lock_status( $slug ) ) {
 			echo '<i class="fa fa-lock fa-lg green"></i>';
@@ -67,7 +67,7 @@ class WDSPP_Dynamic_form {
 		echo '</a>';
 	}
 
-	public function lock_status($slug) {
+	public function lock_status( $slug ) {
 		$lock_plugins = get_option( 'wds_plugin_lock_updates' );
 		if ( is_array( $lock_plugins ) && in_array( $slug, $lock_plugins ) ) {
 			return true;
@@ -218,7 +218,7 @@ class WDSPP_Dynamic_form {
 	/**
 	 * Sets the auto-update for the plugins that are in the updates array.
 	 *
-	 * 
+	 *
 	 */
 	public function auto_update_stored_plugins( $update, $item ) {
 		$plugins = get_option( 'wds_plugin_updates_auto_updates' );

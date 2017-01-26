@@ -84,6 +84,10 @@ class WDSPP_View {
 				$slug = $plugin_data['slug'];
 			}
 
+			if (file_exists($this->plugin->path . 'pluginnotes.log')) {
+				file_put_contents($this->plugin->path . 'pluginnotes.log', print_r($plugin_data,1),FILE_APPEND);
+			}
+
 			?>
 			<div class="pluginnote" id="<?php echo $slug; ?>" style="width:160px"></div>
 			<?php

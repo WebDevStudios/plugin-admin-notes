@@ -433,6 +433,3 @@ add_action( 'plugins_loaded', array( wds_plugin_police(), 'hooks' ) );
 
 register_activation_hook( __FILE__, array( wds_plugin_police(), '_activate' ) );
 register_deactivation_hook( __FILE__, array( wds_plugin_police(), '_deactivate' ) );
-
-
-// @TODO: Clear debug.log and run through user actions. Probably several unset array keys.

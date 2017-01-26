@@ -29,6 +29,20 @@ jQuery( document ).ready( function ( $ ) {
 			jQuery( '#police_comment_' + slug ).focus();
 		} );
 
+		jQuery( document ).on( "click", '#plugin_lock_update_' + slug, function () {
+
+			var lockUpdates = {
+				'action': 'pp_lock_updates',
+				'slug':   slug
+			};
+
+			jQuery.post( ajaxurl, lockUpdates, function ( response ) {
+				jQuery( '#' + slug ).html( response );
+
+			} );
+
+		} );
+
 
 		jQuery( document ).on( "click", '#plugin_auto_update_' + slug, function () {
 
@@ -40,20 +54,6 @@ jQuery( document ).ready( function ( $ ) {
 			jQuery.post( ajaxurl, toggleUpdate, function ( response ) {
 				jQuery( '#' + slug ).html( response );
 
-
-				jQuery( document ).on( "click", '#plugin_lock_update_' + slug, function () {
-
-					var lockUpdates = {
-						'action': 'pp_lock_updates',
-						'slug':   slug
-					};
-
-					jQuery.post( ajaxurl, lockUpdates, function ( response ) {
-						jQuery( '#' + slug ).html( response );
-
-					} );
-
-				} );
 
 			} );
 

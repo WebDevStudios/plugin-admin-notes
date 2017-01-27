@@ -58,11 +58,12 @@ class WDSPP_Dynamic_form {
 	}
 
 	public function lock( $slug ) {
-		echo '<a href="javascript:void(0)" id=plugin_lock_update_' . $slug . '>';
 		if ( $this->lock_status( $slug ) ) {
-			echo '<i class="fa fa-lock fa-lg green"></i>';
+			echo '<a href="javascript:void(0)" id=plugin_lock_update_' . $slug . ' aria-label="Unlock the ' . $slug . '  plugin"';
+			echo '<i class="fa fa-lock fa-lg green" aria-hidden="true"></i>';
 		} else {
-			echo '<i class="fa fa-lock fa-lg grey"></i>';
+			echo '<a href="javascript:void(0)" id=plugin_lock_update_' . $slug . ' aria-label="Lock the ' . $slug . '  plugin"';
+			echo '<i class="fa fa-lock fa-lg grey" aria-hidden="true"></i>';
 		}
 		echo '</a>';
 	}
@@ -104,10 +105,11 @@ class WDSPP_Dynamic_form {
 	 * Set status for auto-updating.
 	 */
 	public function update( $slug ) {
-		echo '<a href="javascript:void(0)" id=plugin_auto_update_' . $slug . '>';
 		if ( $this->update_status( $slug ) ) {
+			echo '<a href="javascript:void(0)" id=plugin_auto_update_' . $slug . ' aria-label="Turn off auto updates for the ' . $slug . '  plugin"';
 			echo '<i class="fa fa-refresh fa-lg green"></i>';
 		} else {
+			echo '<a href="javascript:void(0)" id=plugin_auto_update_' . $slug . ' aria-label="Turn on auto updates for the ' . $slug . '  plugin"';
 			echo '<i class="fa fa-refresh fa-lg grey"></i>';
 		}
 		echo '</a>';

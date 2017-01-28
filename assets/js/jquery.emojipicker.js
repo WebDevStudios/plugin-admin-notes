@@ -18,7 +18,7 @@
       MAX_WIDTH = 600,
       MIN_HEIGHT = 100,
       MAX_HEIGHT = 350,
-      MAX_ICON_HEIGHT = 50;
+      MAX_ICON_HEIGHT = 23;
 
   var categories = [
     { name: 'people', label: 'People' },

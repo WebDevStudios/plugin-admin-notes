@@ -195,7 +195,7 @@ final class WDS_Plugin_Police {
 		// < 10 for CPT_Core,
 		// < 5 for Taxonomy_Core,
 		// 0 Widgets because widgets_init runs at init priority 1.
-		add_action( 'init', array( $this, 'init' ), 0 );
+		add_action( 'plugins_loaded', array( $this, 'init' ),1 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'eq_scripts' ) );
 	}
 
@@ -429,7 +429,7 @@ function wds_plugin_police() {
 }
 
 // Kick it off.
-add_action( 'plugins_loaded', array( wds_plugin_police(), 'hooks' ) );
+add_action( 'plugins_loaded', array( wds_plugin_police(), 'hooks' ),0 );
 
 register_activation_hook( __FILE__, array( wds_plugin_police(), '_activate' ) );
 register_deactivation_hook( __FILE__, array( wds_plugin_police(), '_deactivate' ) );

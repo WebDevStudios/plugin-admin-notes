@@ -47,7 +47,8 @@ class WDSPP_View {
 		add_action( 'wp_ajax_pp_receive_comment', array( $this, 'receive_comment' ) );
 		add_action( 'wp_ajax_pp_toggle_updates', array( $this, 'toggle_updates' ) );
 		add_action( 'wp_ajax_pp_lock_updates', array( $this, 'toggle_lock' ) );
-		add_filter( 'plugin_action_links', array( $this, 'remove_update' ), 10, 4 );
+		add_filter( 'plugin_action_links', array( $this, 'remove_updates_plugin_page' ), 10, 4 );
+		add_action( 'plugins_loaded', array( $this, 'remove_updates_globally' ), 2 );
 	}
 
 	/**
@@ -84,7 +85,7 @@ class WDSPP_View {
 			}
 
 			global $wp_filter;
-			if ( key_exists('plugin', $plugin_data) && isset( $wp_filter[ 'after_plugin_row_' . $plugin_data['plugin'] ] ) && $this->plugin->dynamic_form->lock_status( $slug ) ) {
+			if ( key_exists( 'plugin', $plugin_data ) && isset( $wp_filter[ 'after_plugin_row_' . $plugin_data['plugin'] ] ) && $this->plugin->dynamic_form->lock_status( $slug ) ) {
 				unset( $wp_filter[ 'after_plugin_row_' . $plugin_data['plugin'] ] );
 			}
 
@@ -136,7 +137,7 @@ class WDSPP_View {
 		$this->display_form();
 	}
 
-	public function remove_update( $actions, $plugin_file, $plugin_data, $context ) {
+	public function remove_updates_plugin_page( $actions, $plugin_file, $plugin_data, $context ) {
 		$plugin_update = get_option( '_site_transient_update_plugins' );
 
 		if ( isset( $plugin_data['slug'] ) && $this->plugin->dynamic_form->lock_status( $plugin_data['slug'] ) ) {
@@ -150,10 +151,41 @@ class WDSPP_View {
 
 				// Rewrite the options.
 				update_option( '_site_transient_update_plugins', $plugin_update );
+
 			}
 		}
 
 		return $actions;
+
+	}
+
+	public function remove_updates_globally() {
+
+		$plugin_update  = get_transient( 'update_plugins' );
+		$locked_updates = get_option( 'wds_plugin_lock_updates' );
+
+		foreach ( $plugin_update->response as $plugin_key => $plugin_array ) {
+
+			echo "in HERE<HR>";
+
+			$plugin_slug = $plugin_array->slug;
+			if ( in_array( $plugin_slug, $locked_updates ) ) {
+				$plugin_update->no_update[ $plugin_key ]              = $plugin_update->response[ $plugin_key ];
+				$plugin_update->no_update[ $plugin_key ]->new_version = $plugin_update->checked[ $plugin_key ];
+
+				// Unset the update data.
+				unset( $plugin_update->response[ $plugin_key ] );
+
+				// Rewrite the options.
+				set_transient( 'update_plugins', $plugin_update, WEEK_IN_SECONDS );
+
+				error_log( print_r( $plugin_update, 1 ) );
+
+			}
+		}
+	}
+
+	public function remove_update() {
 
 	}
 

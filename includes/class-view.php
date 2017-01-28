@@ -49,6 +49,8 @@ class WDSPP_View {
 		add_action( 'wp_ajax_pp_lock_updates', array( $this, 'toggle_lock' ) );
 		add_filter( 'plugin_action_links', array( $this, 'remove_update' ), 10, 4 );
 
+		add_action( 'init', array( $this, 'hide_premium_notices' ) );
+
 	}
 
 	/**
@@ -77,6 +79,11 @@ class WDSPP_View {
 	 */
 	public function render_column( $column_name, $plugin_file, $plugin_data ) {
 		if ( 'plugin_admin_notes' == $column_name ) {
+
+			global $wp_filter;
+			if ( isset( $wp_filter[ 'after_plugin_row_' . $plugin_data['plugin'] ] ) ) {
+				unset( $wp_filter[ 'after_plugin_row_' . $plugin_data['plugin'] ] );
+			}
 
 			if ( ! isset( $plugin_data['slug'] ) ) {
 				$slug = sanitize_title( $plugin_data['Name'] );
@@ -151,6 +158,16 @@ class WDSPP_View {
 
 		return $actions;
 
+	}
+
+	public function after_plugin_row() {
+
+
+		remove_action( 'after_plugin_row_wp-migrate-db-pro/wp-migrate-db-pro.php', 11, 2 );
+		$plugins = get_option( 'wds_plugin_updates_auto_updates' );
+		foreach ( $plugins as $plugin ) {
+
+		}
 	}
 
 }

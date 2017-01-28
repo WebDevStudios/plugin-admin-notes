@@ -31,6 +31,8 @@ jQuery( document ).ready( function ( $ ) {
 
 		jQuery( document ).on( "click", '#plugin_lock_update_' + slug, function () {
 
+			jQuery( '#' + slug ).html('loading...');
+
 			var lockUpdates = {
 				'action': 'pp_lock_updates',
 				'slug':   slug
@@ -45,6 +47,8 @@ jQuery( document ).ready( function ( $ ) {
 
 
 		jQuery( document ).on( "click", '#plugin_auto_update_' + slug, function () {
+
+			jQuery( '#' + slug ).html('loading...');
 
 			var toggleUpdate = {
 				'action': 'pp_toggle_updates',

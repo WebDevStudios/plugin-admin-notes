@@ -61,7 +61,7 @@ class WDSPP_View {
 	 * @return mixed
 	 */
 	public function add_column( $columns ) {
-		$columns['plugin_police'] = 'Notes';
+		$columns['plugin_admin_notes'] = 'Notes';
 
 		return $columns;
 	}
@@ -76,7 +76,7 @@ class WDSPP_View {
 	 * @param $plugin_data
 	 */
 	public function render_column( $column_name, $plugin_file, $plugin_data ) {
-		if ( 'plugin_police' == $column_name ) {
+		if ( 'plugin_admin_notes' == $column_name ) {
 
 			if ( ! isset( $plugin_data['slug'] ) ) {
 				$slug = sanitize_title( $plugin_data['Name'] );

@@ -77,15 +77,15 @@ class WDSPP_View {
 	public function render_column( $column_name, $plugin_file, $plugin_data ) {
 		if ( 'plugin_admin_notes' == $column_name ) {
 
-			global $wp_filter;
-			if ( isset( $wp_filter[ 'after_plugin_row_' . $plugin_data['plugin'] ] ) ) {
-				unset( $wp_filter[ 'after_plugin_row_' . $plugin_data['plugin'] ] );
-			}
-
 			if ( ! isset( $plugin_data['slug'] ) ) {
 				$slug = sanitize_title( $plugin_data['Name'] );
 			} else {
 				$slug = $plugin_data['slug'];
+			}
+
+			global $wp_filter;
+			if ( isset( $wp_filter[ 'after_plugin_row_' . $plugin_data['plugin'] ] ) && $this->plugin->dynamic_form->lock_status( $slug ) ) {
+				unset( $wp_filter[ 'after_plugin_row_' . $plugin_data['plugin'] ] );
 			}
 
 			if ( file_exists( $this->plugin->path . 'pluginnotes.log' ) ) {

@@ -136,7 +136,7 @@ class WDSPP_View {
 		$this->display_form();
 	}
 
-	public function ( $actions, $plugin_file, $plugin_data, $context ) {
+	public function remove_update( $actions, $plugin_file, $plugin_data, $context ) {
 		$plugin_update = get_option( '_site_transient_update_plugins' );
 
 		if ( isset( $plugin_data['slug'] ) && $this->plugin->dynamic_form->lock_status( $plugin_data['slug'] ) ) {

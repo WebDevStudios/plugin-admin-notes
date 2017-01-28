@@ -166,8 +166,6 @@ class WDSPP_View {
 
 		foreach ( $plugin_update->response as $plugin_key => $plugin_array ) {
 
-			echo "in HERE<HR>";
-
 			$plugin_slug = $plugin_array->slug;
 			if ( in_array( $plugin_slug, $locked_updates ) ) {
 				$plugin_update->no_update[ $plugin_key ]              = $plugin_update->response[ $plugin_key ];
@@ -178,8 +176,6 @@ class WDSPP_View {
 
 				// Rewrite the options.
 				set_transient( 'update_plugins', $plugin_update, WEEK_IN_SECONDS );
-
-				error_log( print_r( $plugin_update, 1 ) );
 
 			}
 		}

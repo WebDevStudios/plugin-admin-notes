@@ -84,7 +84,7 @@ class WDSPP_View {
 			}
 
 			global $wp_filter;
-			if ( isset( $wp_filter[ 'after_plugin_row_' . $plugin_data['plugin'] ] ) && $this->plugin->dynamic_form->lock_status( $slug ) ) {
+			if ( key_exists('plugin', $plugin_data) && isset( $wp_filter[ 'after_plugin_row_' . $plugin_data['plugin'] ] ) && $this->plugin->dynamic_form->lock_status( $slug ) ) {
 				unset( $wp_filter[ 'after_plugin_row_' . $plugin_data['plugin'] ] );
 			}
 

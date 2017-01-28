@@ -224,6 +224,7 @@ class WDSPP_Dynamic_form {
 	 */
 	public function auto_update_stored_plugins( $update, $item ) {
 		$plugins = get_option( 'wds_plugin_updates_auto_updates' );
+
 		if ( in_array( $item->slug, $plugins ) ) {
 			return true; // Always update plugins in this array
 		} else {

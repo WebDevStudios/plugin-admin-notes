@@ -156,7 +156,7 @@ class WDSPP_Dynamic_form {
 	public function get_form( $slug ) {
 		// @TODO: This is kinda ugly, refactor.
 		echo '<BR><a href="javascript:void(0);" id=police_comment_link_' . $slug . '>';
-		_e( 'Add a Note', 'plugin-admin-notes' );
+		esc_html_e( 'Add a Note', 'plugin-admin-notes' );
 		echo '</a>';
 
 		echo '<div style="display: none;" id=police_comment_div_' . $slug . '>';

@@ -62,18 +62,18 @@ class WDSPP_Dynamic_form {
 			echo '<a href="javascript:void(0)" id=plugin_lock_update_'
 			     . $slug
 			     . ' aria-label="'
-			     . sprintf( esc_html__( 'Unlock the %s plugin', 'admin-plugin-notes' ), $slug )
+			     . sprintf( esc_attr__( 'Unlock the %s plugin', 'admin-plugin-notes' ), $slug )
 			     . '" title="'
-			     . sprintf( esc_html__( 'Unlock the %s plugin', 'admin-plugin-notes' ), $slug )
+			     . sprintf( esc_attr__( 'Unlock the %s plugin', 'admin-plugin-notes' ), $slug )
 			     . '">';
 			echo '<i class="fa fa-lock fa-lg green" aria-hidden="true"></i>';
 		} else {
 			echo '<a href="javascript:void(0)" id=plugin_lock_update_'
 			     . $slug
 			     . ' aria-label="'
-			     . sprintf( esc_html__( 'Lock the %s plugin', 'admin-plugin-notes' ), $slug )
+			     . sprintf( esc_attr__( 'Lock the %s plugin', 'admin-plugin-notes' ), $slug )
 			     . ' plugin" title="'
-			     . sprintf( esc_html__( 'Lock the %s plugin', 'admin-plugin-notes' ), $slug )
+			     . sprintf( esc_attr__( 'Lock the %s plugin', 'admin-plugin-notes' ), $slug )
 			     . '">';
 			echo '<i class="fa fa-lock fa-lg grey" aria-hidden="true"></i>';
 		}
@@ -121,18 +121,18 @@ class WDSPP_Dynamic_form {
 			echo '<a href="javascript:void(0)" id=plugin_auto_update_'
 			     . $slug
 			     . ' aria-label="'
-			     . sprintf( esc_html__( 'Turn off auto updates for the %s plugin', 'admin-plugin-notes' ), $slug )
+			     . sprintf( esc_attr__( 'Turn off auto updates for the %s plugin', 'admin-plugin-notes' ), $slug )
 			     . '" title="'
-			     . sprintf( esc_html__( 'Turn off auto updates for the %s plugin', 'admin-plugin-notes' ), $slug )
+			     . sprintf( esc_attr__( 'Turn off auto updates for the %s plugin', 'admin-plugin-notes' ), $slug )
 			     . '">';
 			echo '<i class="fa fa-refresh fa-lg green"></i>';
 		} else {
 			echo '<a href="javascript:void(0)" id=plugin_auto_update_'
 			     . $slug
 			     . ' aria-label="'
-			     . sprintf( esc_html__( 'Turn on auto updates for the %s plugin', 'admin-plugin-notes' ), $slug )
+			     . sprintf( esc_attr__( 'Turn on auto updates for the %s plugin', 'admin-plugin-notes' ), $slug )
 			     . '" title="'
-			     . sprintf( esc_html__( 'Turn on auto updates for the %s plugin', 'admin-plugin-notes' ), $slug )
+			     . sprintf( esc_attr__( 'Turn on auto updates for the %s plugin', 'admin-plugin-notes' ), $slug )
 			     . '">';
 			echo '<i class="fa fa-refresh fa-lg grey"></i>';
 		}

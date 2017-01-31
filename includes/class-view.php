@@ -61,7 +61,7 @@ class WDSPP_View {
 	 * @return mixed
 	 */
 	public function add_column( $columns ) {
-		$columns['plugin_admin_notes'] = 'Notes';
+		$columns['plugin_admin_notes'] = esc_html__( 'Notes', 'plugin-admin-notes' );
 
 		return $columns;
 	}

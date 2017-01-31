@@ -59,10 +59,22 @@ class WDSPP_Dynamic_form {
 
 	public function lock( $slug ) {
 		if ( $this->lock_status( $slug ) ) {
-			echo '<a href="javascript:void(0)" id=plugin_lock_update_' . $slug . ' aria-label="Unlock the ' . $slug . ' plugin" title="Unlock the ' . $slug . ' plugin">';
+			echo '<a href="javascript:void(0)" id=plugin_lock_update_'
+			     . $slug
+			     . ' aria-label="'
+			     . sprintf( esc_attr__( 'Unlock the %s plugin', 'admin-plugin-notes' ), $slug )
+			     . '" title="'
+			     . sprintf( esc_attr__( 'Unlock the %s plugin', 'admin-plugin-notes' ), $slug )
+			     . '">';
 			echo '<i class="fa fa-lock fa-lg green" aria-hidden="true"></i>';
 		} else {
-			echo '<a href="javascript:void(0)" id=plugin_lock_update_' . $slug . ' aria-label="Lock the ' . $slug . ' plugin" title="Lock the ' . $slug . ' plugin">';
+			echo '<a href="javascript:void(0)" id=plugin_lock_update_'
+			     . $slug
+			     . ' aria-label="'
+			     . sprintf( esc_attr__( 'Lock the %s plugin', 'admin-plugin-notes' ), $slug )
+			     . ' plugin" title="'
+			     . sprintf( esc_attr__( 'Lock the %s plugin', 'admin-plugin-notes' ), $slug )
+			     . '">';
 			echo '<i class="fa fa-lock fa-lg grey" aria-hidden="true"></i>';
 		}
 		echo '</a>';
@@ -106,10 +118,22 @@ class WDSPP_Dynamic_form {
 	 */
 	public function update( $slug ) {
 		if ( $this->update_status( $slug ) ) {
-			echo '<a href="javascript:void(0)" id=plugin_auto_update_' . $slug . ' aria-label="Turn off auto updates for the ' . $slug . ' plugin" title="Turn off auto updates for the ' . $slug . ' plugin">';
+			echo '<a href="javascript:void(0)" id=plugin_auto_update_'
+			     . $slug
+			     . ' aria-label="'
+			     . sprintf( esc_attr__( 'Turn off auto updates for the %s plugin', 'admin-plugin-notes' ), $slug )
+			     . '" title="'
+			     . sprintf( esc_attr__( 'Turn off auto updates for the %s plugin', 'admin-plugin-notes' ), $slug )
+			     . '">';
 			echo '<i class="fa fa-refresh fa-lg green"></i>';
 		} else {
-			echo '<a href="javascript:void(0)" id=plugin_auto_update_' . $slug . ' aria-label="Turn on auto updates for the ' . $slug . ' plugin" title="Turn on auto updates for the ' . $slug . ' plugin">';
+			echo '<a href="javascript:void(0)" id=plugin_auto_update_'
+			     . $slug
+			     . ' aria-label="'
+			     . sprintf( esc_attr__( 'Turn on auto updates for the %s plugin', 'admin-plugin-notes' ), $slug )
+			     . '" title="'
+			     . sprintf( esc_attr__( 'Turn on auto updates for the %s plugin', 'admin-plugin-notes' ), $slug )
+			     . '">';
 			echo '<i class="fa fa-refresh fa-lg grey"></i>';
 		}
 		echo '</a>';
@@ -132,7 +156,7 @@ class WDSPP_Dynamic_form {
 	public function get_form( $slug ) {
 		// @TODO: This is kinda ugly, refactor.
 		echo '<BR><a href="javascript:void(0);" id=police_comment_link_' . $slug . '>';
-		echo 'Add a Note';
+		esc_html_e( 'Add a Note', 'plugin-admin-notes' );
 		echo '</a>';
 
 		echo '<div style="display: none;" id=police_comment_div_' . $slug . '>';

@@ -205,8 +205,8 @@ final class WDS_Plugin_Police {
 		add_action( 'plugins_loaded', array( $this, 'init' ), 1 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'eq_scripts' ) );
 
-		if ( WP_UNINSTALL_PLUGIN && isset($_POST['action']) && 'delete-plugin' == $_POST['action']) {
-
+		if ( WP_UNINSTALL_PLUGIN && isset( $_POST['action'] ) && 'delete-plugin' == $_POST['action'] ) {
+			$this->plugin_police->remove_plugin( $_POST['slug'] );
 		}
 	}
 

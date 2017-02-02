@@ -184,8 +184,40 @@ class WDSPP_View {
 		}
 	}
 
-	public function remove_update() {
+	public function remove_plugin( $slug ) {
+		$args  = array(
+			'post_type'      => 'wdspp-plugin-police',
+			'meta_query'     => array(
+				array(
+					'key'     => 'pp_slug',
+					'value'   => $slug,
+					'compare' => '=',
+				),
+			),
+			'fields'         => 'ids',
+			'posts_per_page' => - 1,
+		);
+		$posts = new WP_Query( $args );
 
+		foreach ( $posts->posts as $post ) {
+			$result = wp_delete_post( $post, true );
+		}
+
+		$update_plugins = get_option( 'wds_plugin_updates_auto_updates' );
+		foreach ( $update_plugins as $index => &$plugin_name ) {
+			if ( $slug === $plugin_name ) {
+				unset( $update_plugins[ $index ] );
+			}
+		}
+		update_option( 'wds_plugin_updates_auto_updates', $update_plugins );
+
+		$lock_plugins = get_option( 'wds_plugin_lock_updates' );
+		foreach ( $lock_plugins as $index => &$plugin_name ) {
+			if ( $slug === $plugin_name ) {
+				unset( $lock_plugins[ $index ] );
+			}
+		}
+		update_option( 'wds_plugin_lock_updates', $lock_plugins );
 	}
 
 }

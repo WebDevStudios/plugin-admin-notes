@@ -164,19 +164,22 @@ class WDSPP_View {
 		$plugin_update  = get_transient( 'update_plugins' );
 		$locked_updates = get_option( 'wds_plugin_lock_updates' );
 
-		foreach ( $plugin_update->response as $plugin_key => $plugin_array ) {
+		if ( is_array( $plugin_update ) ) {
+			
+			foreach ( $plugin_update->response as $plugin_key => $plugin_array ) {
 
-			$plugin_slug = $plugin_array->slug;
-			if ( in_array( $plugin_slug, $locked_updates ) ) {
-				$plugin_update->no_update[ $plugin_key ]              = $plugin_update->response[ $plugin_key ];
-				$plugin_update->no_update[ $plugin_key ]->new_version = $plugin_update->checked[ $plugin_key ];
+				$plugin_slug = $plugin_array->slug;
+				if ( in_array( $plugin_slug, $locked_updates ) ) {
+					$plugin_update->no_update[ $plugin_key ]              = $plugin_update->response[ $plugin_key ];
+					$plugin_update->no_update[ $plugin_key ]->new_version = $plugin_update->checked[ $plugin_key ];
 
-				// Unset the update data.
-				unset( $plugin_update->response[ $plugin_key ] );
+					// Unset the update data.
+					unset( $plugin_update->response[ $plugin_key ] );
 
-				// Rewrite the options.
-				set_transient( 'update_plugins', $plugin_update, WEEK_IN_SECONDS );
+					// Rewrite the options.
+					set_transient( 'update_plugins', $plugin_update, WEEK_IN_SECONDS );
 
+				}
 			}
 		}
 	}

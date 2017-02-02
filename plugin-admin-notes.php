@@ -204,10 +204,6 @@ final class WDS_Plugin_Police {
 		// 0 Widgets because widgets_init runs at init priority 1.
 		add_action( 'plugins_loaded', array( $this, 'init' ), 1 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'eq_scripts' ) );
-
-		if ( WP_UNINSTALL_PLUGIN && isset( $_POST['action'] ) && 'delete-plugin' == $_POST['action'] ) {
-			$this->plugin_police->remove_plugin( $_POST['slug'] );
-		}
 	}
 
 	/**
@@ -267,6 +263,11 @@ final class WDS_Plugin_Police {
 
 		if ( ! defined( 'DOING_AJAX' ) && file_exists( $this->path . 'pluginnotes.log' ) ) {
 			file_put_contents( $this->path . 'pluginnotes.log', '' );
+		}
+
+		if ( 'WP_UNINSTALL_PLUGIN' && isset( $_POST['action'] ) && 'delete-plugin' == $_POST['action'] ) {
+			error_log(print_r($_POST,1));
+			$this->view->remove_plugin( $_POST['slug'] );
 		}
 
 	}

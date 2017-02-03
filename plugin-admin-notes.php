@@ -452,16 +452,12 @@ register_deactivation_hook( __FILE__, array( wds_plugin_police(), '_deactivate' 
  * @since 0.1.0
  */
 function uninstall_wds_plugin_admin_notes() {
-	$args = array(
-		'post_type'      => 'wdspp_plugin_police',
-		'fields'         => 'id',
-		'cache_results'  => false,
-		'posts_per_page' => - 1,
-	);
 
-	$query = new WP_Query( $args );
+	global $wpdb;
 
-	foreach ( $query->posts as $post ) {
+	$ids = $wpdb->get_col( "SELECT ID FROM $wpdb->posts WHERE post_type='wdspp-plugin-police'" );
+
+	foreach ( $ids as $post ) {
 		wp_delete_post( $post, true );
 	}
 

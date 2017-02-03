@@ -445,3 +445,24 @@ add_action( 'plugins_loaded', array( wds_plugin_police(), 'hooks' ), 0 );
 
 register_activation_hook( __FILE__, array( wds_plugin_police(), '_activate' ) );
 register_deactivation_hook( __FILE__, array( wds_plugin_police(), '_deactivate' ) );
+
+/**
+ * Deletes the plugin data.
+ *
+ * @since 0.1.0
+ */
+function uninstall_wds_plugin_admin_notes() {
+
+	global $wpdb;
+
+	$ids = $wpdb->get_col( "SELECT ID FROM $wpdb->posts WHERE post_type='wdspp-plugin-police'" );
+
+	foreach ( $ids as $post ) {
+		wp_delete_post( $post, true );
+	}
+
+	delete_option( 'wds_plugin_lock_updates' );
+	delete_option( 'wds_plugin_updates_auto_updates' );
+}
+
+register_uninstall_hook( __FILE__, 'uninstall_wds_plugin_admin_notes' );

@@ -57,6 +57,11 @@ class WDSPP_Dynamic_form {
 		die();
 	}
 
+	/**
+	 * Echo the lock icon.
+	 *
+	 * @since 0.1.0
+	 */
 	public function lock( $slug ) {
 		if ( $this->lock_status( $slug ) ) {
 			echo '<a href="javascript:void(0)" id=plugin_lock_update_'
@@ -80,6 +85,13 @@ class WDSPP_Dynamic_form {
 		echo '</a>';
 	}
 
+	/**
+	 * Returns lock status of particular slug.
+	 *
+	 * @param $slug string plugin slug name.
+	 *
+	 * @return bool
+	 */
 	public function lock_status( $slug ) {
 		$lock_plugins = get_option( 'wds_plugin_lock_updates' );
 		if ( is_array( $lock_plugins ) && in_array( $slug, $lock_plugins ) ) {
@@ -89,6 +101,11 @@ class WDSPP_Dynamic_form {
 		return false;
 	}
 
+	/**
+	 * Update the lock stats option.
+	 *
+	 * @since 0.1.0
+	 */
 	public function toggle_lock() {
 		$lock_plugins = get_option( 'wds_plugin_lock_updates' );
 		// If this plugin is in the list, remove it.
@@ -112,9 +129,11 @@ class WDSPP_Dynamic_form {
 	}
 
 	/**
-	 * @param $slug
-	 *
 	 * Set status for auto-updating.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param $slug
 	 */
 	public function update( $slug ) {
 		if ( $this->update_status( $slug ) ) {
@@ -139,6 +158,15 @@ class WDSPP_Dynamic_form {
 		echo '</a>';
 	}
 
+	/**
+	 * Return the update status of the plugin passed in.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param $slug
+	 *
+	 * @return bool
+	 */
 	private function update_status( $slug ) {
 		$update_plugins = get_option( 'wds_plugin_updates_auto_updates' );
 		if ( is_array( $update_plugins ) && in_array( $slug, $update_plugins ) ) {
@@ -213,9 +241,9 @@ class WDSPP_Dynamic_form {
 	}
 
 	/**
-	 * Toggle the udpate status.
+	 * Toggle the udpate status option.
 	 *
-	 *
+	 * @since 0.1.0
 	 */
 	public function toggle_updates() {
 		$update_plugins = get_option( 'wds_plugin_updates_auto_updates' );
@@ -244,7 +272,7 @@ class WDSPP_Dynamic_form {
 	/**
 	 * Sets the auto-update for the plugins that are in the updates array.
 	 *
-	 *
+	 * @since 0.1.0
 	 */
 	public function auto_update_stored_plugins( $update, $item ) {
 		$plugins = get_option( 'wds_plugin_updates_auto_updates' );

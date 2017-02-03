@@ -165,7 +165,7 @@ class WDSPP_View {
 		$locked_updates = get_option( 'wds_plugin_lock_updates' );
 
 		if ( is_array( $plugin_update ) ) {
-			
+
 			foreach ( $plugin_update->response as $plugin_key => $plugin_array ) {
 
 				$plugin_slug = $plugin_array->slug;

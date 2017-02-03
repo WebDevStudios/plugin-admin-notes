@@ -10,7 +10,7 @@
 
 ## Description ##
 
-Does some things we won't talk about
+Adds a column to the plugins screen to keep notes, turn on auto updates, or lock out updates entirely. 
 
 ## Installation ##
 

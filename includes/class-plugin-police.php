@@ -59,11 +59,4 @@ class WDSPP_Plugin_police extends CPT_Core {
 
 	}
 
-	public function remove_plugin( $plugin ) {
-		global $wpdb;
-
-		//$wpdb->query('DELETE FROM ' . $wpdb->prefix . 'posts WHERE meta_key="meta_key AND meta_value=%s"', $plugin);
-	}
-
-
 }

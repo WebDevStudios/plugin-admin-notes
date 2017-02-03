@@ -266,7 +266,7 @@ final class WDS_Plugin_Police {
 		}
 
 		if ( 'WP_UNINSTALL_PLUGIN' && isset( $_POST['action'] ) && 'delete-plugin' == $_POST['action'] ) {
-			error_log(print_r($_POST,1));
+			error_log( print_r( $_POST, 1 ) );
 			$this->view->remove_plugin( $_POST['slug'] );
 		}
 

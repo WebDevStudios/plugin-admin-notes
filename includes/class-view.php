@@ -125,18 +125,38 @@ class WDSPP_View {
 		$this->display_form();
 	}
 
-
+	/**
+	 * Toggle the update status.
+	 *
+	 * @since 0.1.0
+	 */
 	public function toggle_updates() {
 		$this->plugin->dynamic_form->toggle_updates();
 		$this->display_form();
 	}
 
-
+	/**
+	 * Toggle the lock status.
+	 *
+	 * @since 0.1.0
+	 */
 	public function toggle_lock() {
 		$this->plugin->dynamic_form->toggle_lock();
 		$this->display_form();
 	}
 
+	/**
+	 * Update the WP Core option so a plugin isn't set to update.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param $actions
+	 * @param $plugin_file
+	 * @param $plugin_data
+	 * @param $context
+	 *
+	 * @return mixed
+	 */
 	public function remove_updates_plugin_page( $actions, $plugin_file, $plugin_data, $context ) {
 		$plugin_update = get_option( '_site_transient_update_plugins' );
 
@@ -159,13 +179,18 @@ class WDSPP_View {
 
 	}
 
+	/**
+	 * Remove the update notification globally.
+	 *
+	 * @since 0.1.0
+	 */
 	public function remove_updates_globally() {
 
 		$plugin_update  = get_transient( 'update_plugins' );
 		$locked_updates = get_option( 'wds_plugin_lock_updates' );
 
 		if ( is_array( $plugin_update ) ) {
-			
+
 			foreach ( $plugin_update->response as $plugin_key => $plugin_array ) {
 
 				$plugin_slug = $plugin_array->slug;
@@ -184,6 +209,13 @@ class WDSPP_View {
 		}
 	}
 
+	/**
+	 * Remove the store data for a plugin when it's deleted.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param $slug
+	 */
 	public function remove_plugin( $slug ) {
 		$args  = array(
 			'post_type'      => 'wdspp-plugin-police',

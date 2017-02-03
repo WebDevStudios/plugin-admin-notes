@@ -244,29 +244,6 @@ final class WDS_Plugin_Police {
 	}
 
 	/**
-	 * Deletes the plugin data.
-	 *
-	 * @since 0.1.0
-	 */
-	public function _uninstall() {
-		$args = array(
-			'post_type'      => 'wdspp_plugin_police',
-			'fields'         => 'id',
-			'cache_results'  => false,
-			'posts_per_page' => - 1,
-		);
-
-		$posts = new WP_Query( $args );
-
-		foreach ( $posts->results as $post ) {
-			wp_delete_post( $post, true );
-		}
-
-		delete_option( 'wds_plugin_lock_updates' );
-		delete_option( 'wds_plugin_updates_auto_updates' );
-	}
-
-	/**
 	 * Init hooks
 	 *
 	 * @since  0.1.0
@@ -468,4 +445,28 @@ add_action( 'plugins_loaded', array( wds_plugin_police(), 'hooks' ), 0 );
 
 register_activation_hook( __FILE__, array( wds_plugin_police(), '_activate' ) );
 register_deactivation_hook( __FILE__, array( wds_plugin_police(), '_deactivate' ) );
-register_uninstall_hook( __FILE__, array( wds_plugin_police(), '_uninstall' ) );
+
+/**
+ * Deletes the plugin data.
+ *
+ * @since 0.1.0
+ */
+function uninstall_wds_plugin_admin_notes() {
+	$args = array(
+		'post_type'      => 'wdspp_plugin_police',
+		'fields'         => 'id',
+		'cache_results'  => false,
+		'posts_per_page' => - 1,
+	);
+
+	$posts = new WP_Query( $args );
+
+	foreach ( $posts->results as $post ) {
+		wp_delete_post( $post, true );
+	}
+
+	delete_option( 'wds_plugin_lock_updates' );
+	delete_option( 'wds_plugin_updates_auto_updates' );
+}
+
+register_uninstall_hook( __FILE__, 'uninstall_wds_plugin_admin_notes' );

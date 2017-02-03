@@ -459,9 +459,9 @@ function uninstall_wds_plugin_admin_notes() {
 		'posts_per_page' => - 1,
 	);
 
-	$posts = new WP_Query( $args );
+	$query = new WP_Query( $args );
 
-	foreach ( $posts->results as $post ) {
+	foreach ( $query->posts as $post ) {
 		wp_delete_post( $post, true );
 	}
 

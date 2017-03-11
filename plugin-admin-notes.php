@@ -203,7 +203,7 @@ final class WDS_Plugin_Police {
 		// < 5 for Taxonomy_Core,
 		// 0 Widgets because widgets_init runs at init priority 1.
 		add_action( 'plugins_loaded', array( $this, 'init' ), 1 );
-		add_action( 'admin_enqueue_scripts', array( $this, 'eq_scripts' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'eq_scripts' ), 10, 1 );
 	}
 
 	/**
@@ -211,8 +211,16 @@ final class WDS_Plugin_Police {
 	 *
 	 * @since 0.1.0
 	 */
-	public function eq_scripts() {
+	public function eq_scripts( $page ) {
+		// Make sure we aren't loading in all admin screens.
+		if ( 'plugins.php' !== $page ) {
+			return;
+		}
+
 		wp_enqueue_script( 'pluginnotes', $this->url . 'assets/js/plugin-notes.js', array( 'jquery' ), '0.1.0' );
+		// Localize our strings.
+		$l10n = array( 'loading_message' => __( 'Loading&hellip;', 'plugin-admin-notes' ) );
+		wp_localize_script( 'pluginnotes', 'AdminNotes', $l10n );
 		wp_enqueue_script( 'pluginnotes_emojipicker', $this->url . 'assets/js/jquery.emojipicker.js', array( 'jquery' ), '0.1.0' );
 		wp_enqueue_script( 'pluginnotes_emojis', $this->url . 'assets/js/jquery.emojis.js', array( 'jquery' ), '0.1.0' );
 

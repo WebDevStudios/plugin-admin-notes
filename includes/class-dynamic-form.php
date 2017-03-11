@@ -182,17 +182,17 @@ class WDSPP_Dynamic_form {
 	 * Create the form for the slug.
 	 */
 	public function get_form( $slug ) {
-		// @TODO: This is kinda ugly, refactor.
-		echo '<BR><a href="javascript:void(0);" id=police_comment_link_' . $slug . '>';
-		esc_html_e( 'Add a Note', 'plugin-admin-notes' );
-		echo '</a>';
-
-		echo '<div style="display: none;" id=police_comment_div_' . $slug . '>';
-		echo '<input type=hidden name=slug value=' . $slug . '>';
-		echo '<input type=text class="plugin_notes_' . $slug . ' plugin-admin-notes-note" name=note id=police_comment_' . $slug . '>';
-		echo '<input type=button value="Add a Note" id=police_comment_submit_' . $slug . '>';
-		echo '</div>';
-	}
+		?><br/>
+		<a href="javascript:void(0);" id="police_comment_link_<?php echo esc_attr( $slug ); ?>">
+		<?php esc_html_e( 'Add a Note', 'plugin-admin-notes' ); ?>
+		</a>
+		<div style="display: none;" id="police_comment_div_<?php echo esc_attr( $slug ); ?>">
+		<input type="hidden" name="slug" value="<?php echo esc_attr( $slug ); ?>">
+		<input type="text" class="plugin_notes_<?php echo esc_attr( $slug ); ?> plugin-admin-notes-note" name="note" id="police_comment_<?php echo esc_attr( $slug ); ?>">
+		<input type="button" value="<?php esc_attr_e( 'Add a Note', 'plugin-admin-notes' ); ?>" id="police_comment_submit_<?php echo esc_attr( $slug ); ?>">
+		<input type="button" value="<?php esc_attr_e( 'Cancel', 'plugin-admin-notes' ); ?>" id="police_cancel_<?php echo esc_attr( $slug ); ?>">
+		</div>
+	<?php }
 
 	/**
 	 * Get the existing comments.
@@ -213,16 +213,23 @@ class WDSPP_Dynamic_form {
 			),
 		);
 		$results = new WP_Query( $args );
-		foreach ( $results->posts as $post ) {
-			// @TODO: Clean this up.
-			$user_info = get_userdata( $post->post_author );
-			echo '<div style="font-size:smaller;">';
-			echo '<div>' . $post->post_content . '</div>';
-			echo '<i>' . $user_info->user_login . ' </i>';
-			echo 'on ' . $post->post_date;
-			echo '</div>';
-			echo '<HR>';
-		}
+		if ( $results->have_posts() ) {
+			echo '<ul>';
+			while ( $results->have_posts() ) {
+				$results->the_post(); ?>
+				<li style="font-size:smaller;">
+				<?php // Outputs our note, by whom, and the formatted date.
+				printf( __( '%s by <strong>%s</strong> on %s', 'maintainn-tools' ),
+					get_the_content(),
+					get_the_author(),
+					get_the_time( 'F j, Y g:i a' )
+				); ?>
+				</li>
+			<?php } // End while().
+			echo '</ul>';
+		} // End if().
+		// Reset dat data.
+		wp_reset_postdata();
 	}
 
 	/**

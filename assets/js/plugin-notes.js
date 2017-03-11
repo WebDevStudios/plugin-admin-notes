@@ -1,6 +1,14 @@
 jQuery( document ).ready( function ( $ ) {
+
 	jQuery( '.pluginnote' ).each( function () {
 		var slug = jQuery( this ).attr( 'id' );
+		var form = jQuery( this ).find( '#police_comment_div_' + slug );
+		var cancel = jQuery( this ).find( '#police_cancel_' + slug );
+
+		jQuery( this ).on( 'click', cancel, function(){
+			form.hide();
+			jQuery( '#police_comment_link_' + slug ).show();
+		});
 
 		var comments = {
 			'action': 'pp_dynamic_form',
@@ -23,7 +31,7 @@ jQuery( document ).ready( function ( $ ) {
 		} );
 
 		jQuery( document ).on( "click", '#police_comment_link_' + slug, function () {
-			jQuery( '#police_comment_div_' + slug ).show();
+			form.show();
 			jQuery( '.plugin_notes_' + slug ).emojiPicker();
 			jQuery( '#police_comment_link_' + slug ).hide();
 			jQuery( '#police_comment_' + slug ).focus();
@@ -31,7 +39,7 @@ jQuery( document ).ready( function ( $ ) {
 
 		jQuery( document ).on( "click", '#plugin_lock_update_' + slug, function () {
 
-			jQuery( '#' + slug ).html('loading...');
+			jQuery( '#' + slug ).html( AdminNotes.loading_message );
 
 			var lockUpdates = {
 				'action': 'pp_lock_updates',
@@ -40,15 +48,13 @@ jQuery( document ).ready( function ( $ ) {
 
 			jQuery.post( ajaxurl, lockUpdates, function ( response ) {
 				jQuery( '#' + slug ).html( response );
-
 			} );
-
 		} );
 
 
 		jQuery( document ).on( "click", '#plugin_auto_update_' + slug, function () {
 
-			jQuery( '#' + slug ).html('loading...');
+			jQuery( '#' + slug ).html( AdminNotes.loading_message );
 
 			var toggleUpdate = {
 				'action': 'pp_toggle_updates',
@@ -57,12 +63,8 @@ jQuery( document ).ready( function ( $ ) {
 
 			jQuery.post( ajaxurl, toggleUpdate, function ( response ) {
 				jQuery( '#' + slug ).html( response );
-
-
 			} );
-
 		} );
-
 	} );
 } );
 

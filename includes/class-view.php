@@ -94,7 +94,7 @@ class WDSPP_View {
 			}
 
 			?>
-			<div class="pluginnote" id="<?php echo $slug; ?>" style="width:160px">
+			<div class="pluginnote" id="<?php echo esc_attr( $slug ); ?>" style="width:160px">
 				<?php
 				$this->plugin->dynamic_form->update( $slug );
 				$this->plugin->dynamic_form->lock( $slug );

@@ -27,7 +27,6 @@ class WDSPP_Dynamic_form {
 	 *
 	 * @param  WDS_Plugin_Police $plugin Main plugin object.
 	 *
-	 * @return void
 	 */
 	public function __construct( $plugin ) {
 		$this->plugin = $plugin;
@@ -38,7 +37,6 @@ class WDSPP_Dynamic_form {
 	 * Initiate our hooks
 	 *
 	 * @since  0.1.0
-	 * @return void
 	 */
 	public function hooks() {
 		add_filter( 'auto_update_plugin', array( $this, 'auto_update_stored_plugins' ), 10, 2 );
@@ -58,31 +56,24 @@ class WDSPP_Dynamic_form {
 	}
 
 	/**
-	 * Echo the lock icon.
+	 * Displays a lock icon for the plugin update status.
+	 *
+	 * @param string $slug The plugin slug.
 	 *
 	 * @since 0.1.0
 	 */
 	public function lock( $slug ) {
-		if ( $this->lock_status( $slug ) ) {
-			echo '<a href="javascript:void(0)" id=plugin_lock_update_'
-			     . $slug
-			     . ' aria-label="'
-			     . sprintf( esc_attr__( 'Unlock the %s plugin', 'admin-plugin-notes' ), $slug )
-			     . '" title="'
-			     . sprintf( esc_attr__( 'Unlock the %s plugin', 'admin-plugin-notes' ), $slug )
-			     . '">';
-			echo '<i class="fa fa-lock fa-lg green" aria-hidden="true"></i>';
-		} else {
-			echo '<a href="javascript:void(0)" id=plugin_lock_update_'
-			     . $slug
-			     . ' aria-label="'
-			     . sprintf( esc_attr__( 'Lock the %s plugin', 'admin-plugin-notes' ), $slug )
-			     . ' plugin" title="'
-			     . sprintf( esc_attr__( 'Lock the %s plugin', 'admin-plugin-notes' ), $slug )
-			     . '">';
-			echo '<i class="fa fa-lock fa-lg grey" aria-hidden="true"></i>';
-		}
-		echo '</a>';
+		// Set the string according to lock_status.
+		$string = $this->lock_status( $slug ) ? __( 'Unlock the %s plugin', 'admin-plugin-notes' ) : __( 'Lock the %s plugin', 'admin-plugin-notes' );
+		// Set the class accordingly to lock_status.
+		$class = $this->lock_status( $slug ) ? 'fa fa-lock fa-lg green' : 'fa fa-lock fa-lg grey';
+
+		// Finally print out our stuff.
+		printf( '<a href="#" class="%1$s" title="%2$s" id="plugin_lock_update_%3$s" aria-label="%2$s"></a>',
+			esc_attr( $class ),
+			esc_attr( sprintf( $string, $slug ) ),
+			esc_attr( $slug )
+		);
 	}
 
 	/**
@@ -129,33 +120,24 @@ class WDSPP_Dynamic_form {
 	}
 
 	/**
-	 * Set status for auto-updating.
+	 * Displays an icon for the auto-update status of the plugin.
+	 *
+	 * @param string $slug The plugin slug.
 	 *
 	 * @since 0.1.0
-	 *
-	 * @param $slug
 	 */
 	public function update( $slug ) {
-		if ( $this->update_status( $slug ) ) {
-			echo '<a href="javascript:void(0)" id=plugin_auto_update_'
-			     . $slug
-			     . ' aria-label="'
-			     . sprintf( esc_attr__( 'Turn off auto updates for the %s plugin', 'admin-plugin-notes' ), $slug )
-			     . '" title="'
-			     . sprintf( esc_attr__( 'Turn off auto updates for the %s plugin', 'admin-plugin-notes' ), $slug )
-			     . '">';
-			echo '<i class="fa fa-refresh fa-lg green"></i>';
-		} else {
-			echo '<a href="javascript:void(0)" id=plugin_auto_update_'
-			     . $slug
-			     . ' aria-label="'
-			     . sprintf( esc_attr__( 'Turn on auto updates for the %s plugin', 'admin-plugin-notes' ), $slug )
-			     . '" title="'
-			     . sprintf( esc_attr__( 'Turn on auto updates for the %s plugin', 'admin-plugin-notes' ), $slug )
-			     . '">';
-			echo '<i class="fa fa-refresh fa-lg grey"></i>';
-		}
-		echo '</a>';
+		// Set the string according to update_status.
+		$string = $this->update_status( $slug ) ? __( 'Turn off auto updates for the %s plugin', 'admin-plugin-notes' ) : __( 'Turn on auto updates for the %s plugin', 'admin-plugin-notes' );
+		// Set the class accordingly to update_status.
+		$class = $this->update_status( $slug ) ? 'fa fa-refresh fa-lg green' : 'fa fa-refresh fa-lg grey';
+
+		// Finally print out the thingy-ma-bopper.
+		printf( '<a href="#" class="%1$s" title="%2$s" id="plugin_auto_update_%3$s" aria-label="%2$s"></a>',
+			esc_attr( $class ),
+			esc_attr( sprintf( $string, $slug ) ),
+			esc_attr( $slug )
+		);
 	}
 
 	/**
@@ -163,7 +145,7 @@ class WDSPP_Dynamic_form {
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param $slug
+	 * @param string $slug The plugin's slug.
 	 *
 	 * @return bool
 	 */
@@ -177,9 +159,11 @@ class WDSPP_Dynamic_form {
 	}
 
 	/**
+	 * Create the form for the slug.
+	 *
 	 * @param $slug
 	 *
-	 * Create the form for the slug.
+	 * @since 0.1.0
 	 */
 	public function get_form( $slug ) {
 		?><br/>
@@ -197,9 +181,9 @@ class WDSPP_Dynamic_form {
 	/**
 	 * Get the existing comments.
 	 *
-	 * @since 0.1.0
+	 * @param string $slug The slug of the plugin.
 	 *
-	 * @param $slug
+	 * @since 0.1.0
 	 */
 	public function get_comments( $slug ) {
 		$args    = array(
